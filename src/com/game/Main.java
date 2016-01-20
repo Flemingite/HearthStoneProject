@@ -58,23 +58,29 @@ public class Main {
         //Déroulement du jeu
 
         while(board.getPlayer1().getHero().getHpNumber() !=0 && board.getPlayer2().getHero().getHpNumber() !=0) {
-            if (Lap.lapNumber < 11) {
+            if (Lap.lapNumber < 10) {
                 Lap.lapNumber++;
             }
+
+
             System.out.println("________");
             System.out.println("|Tour " + Lap.lapNumber + "|");
             System.out.println("________");
+
             //Tour du joueur 1
-            System.out.println("Tour du joueur1 avec " + Lap.lapNumber + " points d'action");
             board.getPlayer1().setActionPoints(Lap.lapNumber);
             board.getPlayer1().dropACard();
+            board.putCanAttackOfMonsterTrue(board.getPlayer1().getHero());
+            board.printBoard();
             board.getPlayer1().getHand().printHand(board.getPlayer1().getHand().getCards().size());
+            System.out.println("Tour du joueur1 avec " + board.getPlayer1().getActionPoints() + " points d'action");
 
             int lapFinished = Lap.askLapFinished();
             while (lapFinished != 1 && board.getPlayer1().getHero().getHpNumber() !=0 && board.getPlayer2().getHero().getHpNumber() !=0) {
                 Lap.doAnAction(board.getPlayer1(), board.getPlayer2(), board);
                 board.printBoard();
                 board.getPlayer1().getHand().printHand(board.getPlayer1().getHand().getCards().size());
+                board.getPlayer1().printActionPoints();
                 lapFinished = Lap.askLapFinished();
             }
         }

@@ -135,10 +135,26 @@ public class Board {
             }
             i++;
         }
-
     }
 
-    public int checkPlaceOnTheBoard(Hero hero) {
+    public void putCanAttackOfMonsterTrue(Hero hero){
+        int i = 0;
+        int heroChosen;
+        if (hero == getPlayer1().getHero()){
+            heroChosen = 0;
+        }
+        else{
+            heroChosen = 1;
+        }
+        while ((i < 7)) {
+            if (plateau[i][heroChosen].getName() != null) {
+                plateau[i][heroChosen].setCanAttack(true);
+            }
+            i++;
+        }
+    }
+
+    public boolean checkPlaceOnTheBoard(Hero hero) {
         int i = 0;
         int heroChosen;
 
@@ -151,12 +167,11 @@ public class Board {
         while ((i < 7) && (plateau[i][heroChosen].getName() != "")){
 
             if (plateau[i][heroChosen].getName() == null) {
-                    return 1;
+                    return true;
             }
             i++;
         }
-        System.out.println("Board plein, vous ne pouvez plus poser de créatures");
-        return 0;
+        return false;
     }
 
     public void attackGestion(){

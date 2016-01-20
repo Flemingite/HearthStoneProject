@@ -8,6 +8,7 @@ public class Card implements CardCharacteristics {
     private int attack;
     private int healthPoints;
     private String name;
+    private boolean canAttack = false;
 
     public Card() {
     }
@@ -49,6 +50,14 @@ public class Card implements CardCharacteristics {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isCanAttack() {
+        return canAttack;
+    }
+
+    public void setCanAttack(boolean canAttack) {
+        this.canAttack = canAttack;
     }
 
     public void printActionPointsRequired(){

@@ -2,7 +2,9 @@ package com.game.heroes;
 
 import com.game.Board;
 import com.game.Hand;
+import com.game.Player;
 import com.game.deck.Card;
+import com.game.deck.Deck;
 
 /**
  * Created by isen on 11/01/2016.
@@ -15,10 +17,9 @@ public class Warlock extends Hero {
     }
 
     @Override
-    public void heroicPower(int actionPoints, Board board, Hand hand, Card c, Hero hero) {
+    public void heroicPower(Player player, Player playerAttacked, Board board) {
         hpNumber =-1;
-        hand.addCardToHand(c);
-
+        player.dropACard();
 
     }
 }

@@ -1,8 +1,7 @@
 package com.game.heroes;
 
 import com.game.Board;
-import com.game.Hand;
-import com.game.deck.Card;
+import com.game.Player;
 
 /**
  * Created by isen on 11/01/2016.
@@ -33,7 +32,7 @@ public abstract class Hero {
         return ACTIONPOINTSREQUIREDFORHEROICPOWER;
     }
 
-    public abstract void heroicPower(int actionPoints, Board board, Hand hand, Card c, Hero hero);
+    public abstract void heroicPower(Player player, Player playerAttacked, Board board);
 
     public static Hero chooseHero(int input, int hpHero){
             Hero hero = null;

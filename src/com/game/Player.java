@@ -83,13 +83,24 @@ public class Player {
         int oneCard = (int)(Math.random() * (cardsNumber));
 
         int cardsIntheHand = hand.getCards().size();
-        if(cardsIntheHand < 11) {
+        if(cardsIntheHand < 10 && deck.getCards().size() != 0) {
             hand.addCardToHand(deck.getCards().get(oneCard));
             deck.removeCardToDeck(deck.getCards().get(oneCard));
         }
         else{
-            System.out.println("Trop de cartes en main, la carte est détruite");
-            deck.removeCardToDeck(deck.getCards().get(oneCard));
+            if (deck.getCards().size() == 0){
+                System.out.println("Votre deck est vide");
+            }
+            else {
+                System.out.println("Trop de cartes en main, la carte est détruite");
+                deck.removeCardToDeck(deck.getCards().get(oneCard));
+            }
         }
     }
+
+    public void printActionPoints(){
+
+        System.out.println("\nIl vous reste "+actionPoints+" points d'action\n");
+    }
 }
+
