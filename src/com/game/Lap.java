@@ -57,7 +57,7 @@ public class Lap {
     }
 
 
-    public static void doAnAction(Player player, Board board){
+    public static void doAnAction(Player player, Player playerAttacked, Board board){
         int input = 0;
 
         while (input!=1 && input != 2) {
@@ -77,7 +77,16 @@ public class Lap {
             System.out.println("Avec quelle créature voulez vous attaquer?");
             board.checkMonstersOnTheBoard(player.getHero());
             Scanner sc = new Scanner(System.in);
-            input = sc.nextInt();
+            int monsterAttack = sc.nextInt();
+            //On a choisi quelle crea va attaquer, maintenant il faut le faire =)
+            System.out.println("Que voulez vous attaquer?");
+            System.out.println("Attaquer le héros   = 0");
+            board.checkMonstersOnTheBoard(playerAttacked.getHero());
+            Scanner sca = new Scanner(System.in);
+            int monsterAttacked = sc.nextInt();
+            if (monsterAttacked ==0){
+                board.plateau[monsterAttack-1][0].cardAttacks(null,playerAttacked.getHero());
+            }
 
         }
     }
