@@ -66,19 +66,20 @@ public class Lap {
     public static void monsterAttack(Player player, Player playerAttacked, Board board){
 
         int heroChosen;
-
+        int otherHero;
         if (player.getHero() == board.getPlayer1().getHero()) {
             heroChosen = 0;
+            otherHero = 1;
         }
         else {
             heroChosen = 1;
+            otherHero = 0;
         }
         System.out.println("Avec quelle créature voulez vous attaquer?");
         board.checkMonstersOnTheBoard(player.getHero());
         Scanner sc = new Scanner(System.in);
         int monsterAttack = sc.nextInt();
         if (board.plateau[monsterAttack-1][heroChosen].isCanAttack() == true && board.plateau[monsterAttack-1][heroChosen].getName() != null) {
-            //On a choisi quelle crea va attaquer, maintenant il faut le faire =)
             System.out.println("Que voulez vous attaquer?");
             System.out.println("Attaquer le héros   = 0");
             board.checkMonstersOnTheBoard(playerAttacked.getHero());
@@ -88,8 +89,14 @@ public class Lap {
                 board.plateau[monsterAttack - 1][heroChosen].cardAttacks(null, playerAttacked.getHero());
                 board.plateau[monsterAttack - 1][heroChosen].setCanAttack(false);
             } else {
-                board.plateau[monsterAttack - 1][heroChosen].cardAttacks(board.plateau[monsterAttacked - 1][1], null);
+                board.plateau[monsterAttack - 1][heroChosen].cardAttacks(board.plateau[monsterAttacked - 1][otherHero], null);
                 board.plateau[monsterAttack - 1][heroChosen].setCanAttack(false);
+                if (board.plateau[monsterAttack - 1][heroChosen].getHealthPoints() <=0){
+                    board.removeCardToBoard(player.getHero(),monsterAttack-1);
+                }
+                if (board.plateau[monsterAttacked - 1][otherHero].getHealthPoints() <=0){
+                    board.removeCardToBoard(playerAttacked.getHero(),monsterAttacked-1);
+                }
             }
         }
         else{
@@ -122,7 +129,34 @@ public class Lap {
         }
     }
 
-    public static void playerLap(Player player, Board board, int lapNumber){
+    public static void playerLap(Player player, Player playerAttacked, Board board){
+        int heroChosen;
 
+        if (player == board.getPlayer1()){
+            heroChosen = 1;
+        }
+        else{
+            heroChosen = 2;
+        }
+        System.out.println("________");
+        System.out.println("|Tour " + Lap.lapNumber + "|");
+        System.out.println("________");
+
+        //Tour du joueur 1
+        player.setActionPoints(Lap.lapNumber);
+        player.dropACard();
+        board.putCanAttackOfMonsterTrue(player.getHero());
+        board.printBoard();
+        player.getHand().printHand(player.getHand().getCards().size());
+        System.out.println("Tour du joueur"+heroChosen+" avec " + player.getActionPoints() + " points d'action");
+
+        int lapFinished = Lap.askLapFinished();
+        while (lapFinished != 1 && playerAttacked.getHero().getHpNumber() !=0) {
+            Lap.doAnAction(player, playerAttacked, board);
+            board.printBoard();
+            player.getHand().printHand(player.getHand().getCards().size());
+            player.printActionPoints();
+            lapFinished = Lap.askLapFinished();
+        }
     }
 }

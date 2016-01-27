@@ -67,6 +67,9 @@ public class Card implements CardCharacteristics {
     public void printName(){
         System.out.printf("%-15s",name);
     }
+    public void printCanAttack(){
+        System.out.printf("%-15s",canAttack);
+    }
 
     public void printAttackAndHealthPoints(){
         System.out.print(attack+"             "+healthPoints);
@@ -84,11 +87,27 @@ public class Card implements CardCharacteristics {
         }
         else{
             card.setHealthPoints(card.getHealthPoints()-attack);
-            healthPoints =-card.getAttack();
+            healthPoints -=card.getAttack();
         }
     }
+
     @Override
-    public void specialEffect() {
+    public void battleCry() {
+
+    }
+
+    @Override
+    public void enrage() {
+
+    }
+
+    @Override
+    public void charge() {
+
+    }
+
+    @Override
+    public void deathRattle() {
 
     }
 }

@@ -26,16 +26,18 @@ public class Main {
         Hero hero2 = Hero.chooseHero(input, hpHero);
 
         //Create card
-        Card gnome = new Card(1, "gnome", 1, 2);
-        Card raptor = new Card(2,"Raptor",2,3);
+
+
         //Deck 1 and 2
         List<Card> c1 = new ArrayList<Card> ();
         for (int i=0;i<10;i++){
+            Card gnome = new Card(1, "gnome", 1, 2);
             c1.add(gnome);
         }
         List<Card> c2 = new ArrayList<Card> ();
 
         for (int i=0;i<10;i++){
+            Card raptor = new Card(2,"Raptor",2,3);
             c2.add(raptor);
         }
         Deck deck1 = new Deck(c1);
@@ -61,13 +63,16 @@ public class Main {
             if (Lap.lapNumber < 10) {
                 Lap.lapNumber++;
             }
+            //Tour du joueur 1
+            Lap.playerLap(board.getPlayer1(), board.getPlayer2(),board);
 
-
+            /*
             System.out.println("________");
             System.out.println("|Tour " + Lap.lapNumber + "|");
             System.out.println("________");
 
             //Tour du joueur 1
+
             board.getPlayer1().setActionPoints(Lap.lapNumber);
             board.getPlayer1().dropACard();
             board.putCanAttackOfMonsterTrue(board.getPlayer1().getHero());
@@ -83,23 +88,12 @@ public class Main {
                 board.getPlayer1().printActionPoints();
                 lapFinished = Lap.askLapFinished();
             }
-        }
+            */
+            if (board.getPlayer1().getHero().getHpNumber() <=0 && board.getPlayer2().getHero().getHpNumber() <=0){
+                break;
+            }
             //Tour du joueur 2
-
-        //}
-
-
-        //Hand hand1 = new Hand(deck1.getCards());
-
-        //player1.setHand(hand1);
-
-        /*
-        board.getHero1().heroicPower(2, board, null, null, board.getHero1());
-        board.addCardToBoard(gnome,paladin);
-        board.printBoard();
-
-        board.addCardToBoard(deck2.cards.get(1), board.getHero2());
-        board.printBoard();
-        */
+        Lap.playerLap(board.getPlayer2(), board.getPlayer1(),board);
+        }
     }
 }

@@ -18,7 +18,7 @@ public class Warlock extends Hero {
 
     @Override
     public void heroicPower(Player player, Player playerAttacked, Board board) {
-        hpNumber =-1;
+        hpNumber -=1;
         player.dropACard();
 
     }

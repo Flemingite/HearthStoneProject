@@ -54,6 +54,14 @@ public class Hand {
             System.out.println("");
             System.out.print("|");
             for (int i = 0; i < cardsNumber - 1; i++) {
+                cards.get(i).printCanAttack();
+                System.out.print("||");
+            }
+            cards.get(cardsNumber - 1).printCanAttack();
+            System.out.print("|");
+            System.out.println("");
+            System.out.print("|");
+            for (int i = 0; i < cardsNumber - 1; i++) {
                 cards.get(i).printAttackAndHealthPoints();
                 System.out.print("||");
             }

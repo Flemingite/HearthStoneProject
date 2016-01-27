@@ -2,6 +2,9 @@ package com.game.deck;
 
 public interface CardCharacteristics {
 
-    void specialEffect();
+    void battleCry();
+    void enrage();
+    void charge();
+    void deathRattle();
 
 }

@@ -52,6 +52,12 @@ public class Board {
             System.out.print("||");
         }
         System.out.println("");
+        System.out.print("||");
+        for (int i = 0; i < 7; i++) {
+            plateau[i][0].printCanAttack();
+            System.out.print("||");
+        }
+        System.out.println("");
         System.out.print("|");
         System.out.print("|");
         for (int i = 0; i < 7; i++) {
@@ -81,6 +87,12 @@ public class Board {
         System.out.print("|");
         for (int i = 0; i < 7; i++) {
             plateau[i][1].printName();
+            System.out.print("||");
+        }
+        System.out.println("");
+        System.out.print("||");
+        for (int i = 0; i < 7; i++) {
+            plateau[i][0].printCanAttack();
             System.out.print("||");
         }
         System.out.println("");
@@ -118,6 +130,18 @@ public class Board {
             i++;
             }
             System.out.println("Board plein, vous ne pouvez plus poser de créatures");
+    }
+
+    public void removeCardToBoard(Hero hero, int position) {
+        Card empty = new Card();
+
+        int heroChosen;
+        if (hero == player1.getHero()) {
+            heroChosen = 0;
+        } else {
+            heroChosen = 1;
+        }
+        plateau[position][heroChosen] = empty;
     }
 
     public void checkMonstersOnTheBoard(Hero hero) {
