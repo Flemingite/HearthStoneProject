@@ -2,6 +2,10 @@ package com.game.deck;
 
 import com.game.heroes.Hero;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Card implements CardCharacteristics {
 
     private int actionPointsRequired;
@@ -18,6 +22,73 @@ public class Card implements CardCharacteristics {
         this.name = name;
         this.healthPoints = healthPoints;
         this.attack = attack;
+    }
+
+    public static List<Card> loadCard() throws IOException {
+        InputStream file = new FileInputStream("cardList.txt");
+        InputStreamReader ipsr = new InputStreamReader(file);
+        BufferedReader br = new BufferedReader(ipsr);
+        List<Card> cardList = new ArrayList<>();
+        String line;
+        char carac =' ';
+
+        while ((line = br.readLine()) != null) {
+            int i = 0;
+            carac = ' ';
+            Card newCard = new Card();
+            int checkAp = 0, checkName = 0, checkHp=0, checkAtp = 0;
+            while(carac != ','){
+                carac = line.charAt(i);
+                i++;
+                checkAp = i;
+            }
+
+            String actionPoint = line.substring(0, checkAp-1);
+            int val = Integer.parseInt(actionPoint);
+            newCard.actionPointsRequired = val;
+
+            carac= line.charAt(checkAp);
+
+            while(carac != ','){
+                carac = line.charAt(i);
+                i++;
+                checkName = i;
+            }
+
+            String name = line.substring(checkAp,checkName-1);
+            newCard.name = name;
+
+            carac= line.charAt(checkName);
+
+            while(carac != ','){
+                carac = line.charAt(i);
+                i++;
+                checkHp = i;
+            }
+
+            String Hp = line.substring(checkName, checkHp-1);
+            val = Integer.parseInt(Hp);
+            newCard.healthPoints = val;
+
+            carac= line.charAt(checkHp);
+
+            while(carac != ','){
+                carac = line.charAt(i);
+                i++;
+                checkAtp = i;
+            }
+
+            String Atp = line.substring(checkHp,checkAtp-1);
+            val = Integer.parseInt(Atp);
+            newCard.attack = val;
+
+
+            cardList.add(newCard);
+
+        }
+
+        return cardList;
+
     }
 
     public int getActionPointsRequired() {
